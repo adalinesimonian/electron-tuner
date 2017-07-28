@@ -36,6 +36,7 @@ devicesSelect.addEventListener('change', async e => {
       }
     })
 
+    // Enable the listen button if we have obtained a MediaStream.
     listenButton.disabled = !sourceStream
   }
 })
