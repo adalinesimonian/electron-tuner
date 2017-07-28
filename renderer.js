@@ -53,7 +53,9 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
   })
   devicesSelect.appendChild(fragment)
 
-  //
+  // Run the event listener on the `<select>` element after the input devices
+  // have been populated. This way the listen button won't remain disabled at
+  // start.
   devicesSelect.dispatchEvent(new Event('change'))
 })
 
