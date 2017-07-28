@@ -78,14 +78,15 @@ function listen () {
 
   mediaRecorder.ondataavailable = update
   mediaRecorder.start()
+  setTimeout(() => listening && mediaRecorder.stop(), 500)
 
   // Every 500ms, send whatever has been recorded to the audio processor.
   // This can't be done with `mediaRecorder.start(ms)` because the
   // `AudioContext` may fail to decode the audio data when sent in parts.
   refreshHandle = setInterval(() => {
-    mediaRecorder.stop()
-    mediaRecorder.start()
-  }, 500)
+    listening && mediaRecorder.start()
+    setTimeout(() => listening && mediaRecorder.stop(), 500)
+  }, 1000)
 }
 
 /**
