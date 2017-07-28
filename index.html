@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tuner</title>
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Tuner</h1>
+
+    <div><label for="devices">Device:</label> <select id="devices"></select></div>
+
+    <div>
+      <label for="a4">A4:</label>
+      <input id="a4" type="number" value="440">
+      <input id="sharps" name="accidentals" type="radio" checked>
+      <label for="sharps">Sharps</label>
+      <input id="flats" name="accidentals" type="radio">
+      <label for="flats">Flats</label>
+    </div>
+
+    <div>Pitch: <span id="pitch"></span></div>
+    <div>Frequency: <span id="frequency"></span></div>
+    <div>Target frequency: <span id="targetFrequency"></span></div>
+    <div>Cents off: <span id="cents"></span></div>
+    <div id="status"></div>
+
+    <div><button id="listen" disabled>Listen</button></div>
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>

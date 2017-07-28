@@ -1,0 +1,71 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url('fonts/OpenSans-Regular.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url('fonts/OpenSans-Bold.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 8px 16px;
+
+  background: #fafafa;
+  color: #212121;
+
+  font-family: 'Open Sans';
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+div {
+  margin: 8px 0;
+}
+
+select, input, button {
+  padding: 2px;
+
+  border: 1px solid #ccc;
+  border-radius: 0;
+
+  background: #fff;
+
+  font-family: 'Open Sans';
+  font-size: 16px;
+}
+
+input[type="number"] {
+  width: 50px;
+}
+
+button {
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+button:active, button:focus {
+  background: #eee;
+}
+
+#listen {
+  padding: 8px;
+  width: 100%;
+}
