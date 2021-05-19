@@ -73,7 +73,7 @@ function analyseAudioData ({ a4 = 440, sampleRate, audioData, accidentals = 'sha
   // and then use that value determine how many cents the audio is off by.
 
   // z = fround(c * 2^((s + 12o) / 12))
-  const correctHz = Math.fround(c0 * (2 ** (steps[key] + (12 * octave)) / 12))
+  const correctHz = Math.fround(c0 * (2 ** ((steps[key] + (12 * octave)) / 12)))
   // w = 1200log2(f / z)
   const centsOff = 1200 * Math.log2(frequency / correctHz)
   /* eslint-enable capitalized-comments */
