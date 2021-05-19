@@ -49,8 +49,8 @@ onmessage = e => {
  * data could not be parsed.
  * @param {AnalyseAudioDataOptions} options Options for parsing.
  */
-function analyseAudioData ({a4 = 440, sampleRate, audioData, accidentals = 'sharps'}) {
-  const detectPitch = Pitchfinder.YIN({sampleRate})
+function analyseAudioData ({ a4 = 440, sampleRate, audioData, accidentals = 'sharps' }) {
+  const detectPitch = Pitchfinder.YIN({ sampleRate })
 
   const frequency = detectPitch(audioData)
   if (frequency === null) {
@@ -77,5 +77,5 @@ function analyseAudioData ({a4 = 440, sampleRate, audioData, accidentals = 'shar
   // w = 1200log2(f / z)
   const centsOff = 1200 * Math.log2(frequency / correctHz)
   /* eslint-enable capitalized-comments */
-  return {frequency, octave, key, correctHz, centsOff}
+  return { frequency, octave, key, correctHz, centsOff }
 }
