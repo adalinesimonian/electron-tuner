@@ -54,6 +54,10 @@ select, input, button {
   font-size: 16px;
 }
 
+select {
+  max-width: 200px;
+}
+
 input[type="number"] {
   width: 50px;
 }
