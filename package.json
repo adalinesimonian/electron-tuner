@@ -43,9 +43,6 @@
   },
   "xo": {
     "extends": "standard",
-    "env": {
-      "browser": true,
-      "node": true
-    }
+    "envs": ["browser", "node"]
   }
 }
