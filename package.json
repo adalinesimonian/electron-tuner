@@ -43,6 +43,12 @@
   },
   "xo": {
     "extends": "standard",
-    "envs": ["browser", "node"]
+    "envs": [
+      "browser",
+      "node"
+    ],
+    "rules": {
+      "unicorn/prefer-module": "off"
+    }
   }
 }

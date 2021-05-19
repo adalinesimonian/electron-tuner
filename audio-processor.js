@@ -31,8 +31,8 @@ const steps = {
 }
 
 // Analyse data sent to the worker.
-onmessage = e => {
-  postMessage(analyseAudioData(e.data))
+onmessage = event => {
+  postMessage(analyseAudioData(event.data))
 }
 
 /**
@@ -61,11 +61,11 @@ function analyseAudioData ({ a4 = 440, sampleRate, audioData, accidentals = 'sha
 
   /* eslint-disable capitalized-comments */
   // c = a(2^-4.75)
-  const c0 = a4 * Math.pow(2.0, -4.75)
+  const c0 = a4 * (2 ** -4.75)
   // h = round(12log2(f / c))
-  const halfStepsBelowMiddleC = Math.round(12.0 * Math.log2(frequency / c0))
+  const halfStepsBelowMiddleC = Math.round(12 * Math.log2(frequency / c0))
   // o = floor(h / 12)
-  const octave = Math.floor(halfStepsBelowMiddleC / 12.0)
+  const octave = Math.floor(halfStepsBelowMiddleC / 12)
   const keys = accidentals === 'flats' ? keysFlat : keysSharp
   const key = keys[Math.floor(halfStepsBelowMiddleC % 12)]
 
@@ -73,7 +73,7 @@ function analyseAudioData ({ a4 = 440, sampleRate, audioData, accidentals = 'sha
   // and then use that value determine how many cents the audio is off by.
 
   // z = fround(c * 2^((s + 12o) / 12))
-  const correctHz = Math.fround(c0 * Math.pow(2.0, (steps[key] + (12 * octave)) / 12.0))
+  const correctHz = Math.fround(c0 * (2 ** (steps[key] + (12 * octave)) / 12))
   // w = 1200log2(f / z)
   const centsOff = 1200 * Math.log2(frequency / correctHz)
   /* eslint-enable capitalized-comments */

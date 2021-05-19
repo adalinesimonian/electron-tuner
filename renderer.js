@@ -21,8 +21,8 @@ let sourceStream
 let listening
 
 // Runs whenever a different audio input device is selected by the user.
-devicesSelect.addEventListener('change', async e => {
-  if (e.target.value) {
+devicesSelect.addEventListener('change', async event => {
+  if (event.target.value) {
     if (listening) {
       stop()
     }
@@ -31,7 +31,7 @@ devicesSelect.addEventListener('change', async e => {
     sourceStream = await navigator.mediaDevices.getUserMedia({
       audio: {
         deviceId: {
-          exact: e.target.value
+          exact: event.target.value
         }
       }
     })
@@ -44,15 +44,16 @@ devicesSelect.addEventListener('change', async e => {
 // Add each available audio input device to the `<select>` element.
 navigator.mediaDevices.enumerateDevices().then(devices => {
   const fragment = document.createDocumentFragment()
-  devices.forEach(device => {
+  for (const device of devices) {
     if (device.kind === 'audioinput') {
       const option = document.createElement('option')
       option.textContent = device.label
       option.value = device.deviceId
-      fragment.appendChild(option)
+      fragment.append(option)
     }
-  })
-  devicesSelect.appendChild(fragment)
+  }
+
+  devicesSelect.append(fragment)
 
   // Run the event listener on the `<select>` element after the input devices
   // have been populated. This way the listen button won't remain disabled at
@@ -75,7 +76,7 @@ listenButton.addEventListener('click', () => {
 function listen () {
   listening = true
   audioProcessor = new Worker('audio-processor.js')
-  audioProcessor.onmessage = handleProcessorMessage
+  audioProcessor.addEventListener('message', handleProcessorMessage)
   listenButton.textContent = 'Stop listening'
   mediaRecorder = new MediaRecorder(sourceStream)
 
@@ -110,11 +111,11 @@ function stop () {
 
 /**
  * Handles data received from a `MediaRecorder`.
- * @param {BlobEvent} e Blob event from the `MediaRecorder`.
+ * @param {BlobEvent} event Blob event from the `MediaRecorder`.
  */
-async function update (e) {
-  if (e.data.size !== 0) {
-    await process(e.data)
+async function update (event) {
+  if (event.data.size > 0) {
+    await process(event.data)
   }
 }
 
@@ -140,16 +141,16 @@ async function process (data) {
 
 /**
  * Handles responses received from the audio processing web worker.
- * @param {MessageEvent} e The message from the audio processing web worker.
+ * @param {MessageEvent} event The message from the audio processing web worker.
  */
-function handleProcessorMessage (e) {
+function handleProcessorMessage (event) {
   if (listening) {
-    if (e.data) {
-      pitchText.textContent = e.data.key + e.data.octave.toString()
-      frequencyText.textContent = e.data.frequency.toFixed(2) + 'Hz'
-      targetFrequencyText.textContent = e.data.correctHz.toFixed(2) + 'Hz'
-      centsText.textContent = Math.abs(e.data.centsOff).toFixed(2) +
-        (e.data.centsOff > 0 ? ' sharp' : ' flat')
+    if (event.data) {
+      pitchText.textContent = event.data.key + event.data.octave.toString()
+      frequencyText.textContent = event.data.frequency.toFixed(2) + 'Hz'
+      targetFrequencyText.textContent = event.data.correctHz.toFixed(2) + 'Hz'
+      centsText.textContent = Math.abs(event.data.centsOff).toFixed(2) +
+        (event.data.centsOff > 0 ? ' sharp' : ' flat')
     } else {
       pitchText.textContent = 'Unknown'
       frequencyText.textContent = ''
